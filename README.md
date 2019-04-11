@@ -1,2 +1,2 @@
-# AdvancedNodeStarter
-Starting project for a course on Advanced Node @ Udemy
+# Advanced-Node-Blog-App
+A Blogging App with Advanced Node.js Features.
