@@ -26,8 +26,3 @@ test('Logout Button Appear when Signed In', async () => {
   const logOutText = await page.getContentsOf('a[href="/auth/logout"]');
   expect(logOutText).toEqual('Logout');
 });
-
-// test('Testing a Test Case', () => {
-//   let sum = 1 + 2;
-//   expect(sum).toEqual(3);
-// })
