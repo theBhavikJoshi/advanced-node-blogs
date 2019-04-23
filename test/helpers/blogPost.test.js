@@ -4,7 +4,7 @@ let page;
 
 beforeEach(async () => {
   page = await Page.Build();
-  await page.goto('localhost:3000');
+  await page.goto('http://localhost:3000');
 });
 
 afterEach(async () => {
@@ -56,3 +56,35 @@ describe('When Logged In', async () => {
     });
   });
 });
+
+describe('When Not Logged In', async () => {
+  test('Cannot Create Blog Post', async () => {
+    const result = await page.evaluate(
+      () => {
+        return fetch('/api/blogs', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ title: 'My Title', content: 'My Content' })
+        }).then(res => res.json());
+      }
+    )
+    expect(result).toEqual({ error: 'You must log in!' });
+  });
+  test('Cannot Fetch Blog Posts', async () => {
+    const result = await page.evaluate(
+      () => {
+        return fetch('/api/blogs', {
+          method: 'GET',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json());
+      }
+    )
+    expect(result).toEqual({ error: 'You must log in!' });
+  });
+})
